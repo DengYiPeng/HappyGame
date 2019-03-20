@@ -1,0 +1,15 @@
+/.vscode
+/.idea
+/*.iml
+*~
+#*#
+/log
+/backends.json
+/connectors.json
+/*.out
+.DS_Store
+/node_modules
+/lib/local.js
+/pb.json
+/pc.json
+package-lock.json
