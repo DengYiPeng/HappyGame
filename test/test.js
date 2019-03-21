@@ -20,9 +20,9 @@ let ip = getIPAdress();
 let address = ip + ':7041';
 
 let handlers = {
-        SIGN_CALLBACK:function (data) {
-            console.log("登录成功");
-        },
-    };
+    SIGN:function (userInfo) {
+        console.log(userInfo);
+    },
+};
 
-client.signIn(address, '邓逸鹏', '123456', handlers);
+client.signIn(address, '邓逸鹏', handlers);

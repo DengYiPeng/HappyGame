@@ -1,10 +1,11 @@
 const io = require("engine.io-client");
-const Constants = require('../lib/constants');
 const Common = require('../lib/util/common');
-
+const MsgType = require('../lib/constants/MsgType');
+const ResponseCode = require('../lib/constants/ResponseCode');
 let _handlers = {};
 let cachingRequests = new Map();
 let _socket ;
+let _username = '';
 
 
 /**
@@ -108,41 +109,48 @@ let execHandlers = function (key, args) {
     }
 };
 
-function init(address, username, password, handlers) {
+function init(address, username, handlers) {
     handlers || (handlers = {});
     for (let key in handlers){
         if (handlers.hasOwnProperty(key)) {
-            for(let index in handlers[key]){
-                addHandler(key, handlers[key][index]);
-            }
+            addHandler(key, handlers[key]);
         }
     }
-
 
     _socket = new io("http://"+address, {
         transports:['websocket','polling'],
         rejectUnauthorized:false,
     });
-    _socket.binaryType = "arraybuffer";
 
     _socket.on("open", function () {
         let requestId = Common.generateRequestId(username);
-        let params = {username: username, password:password};
-        let sign = {type: Constants.MSG_TYPE.SIGN_IN, params: JSON.stringify(params), requestId: requestId};
+        let params = {username: username};
+        let sign = {type: MsgType.START, params: JSON.stringify(params), requestId: requestId};
         _socket.send(new Buffer(JSON.stringify(sign)));
         bindRequestHandler(requestId, signCallBackWithSuccess, signCallBackWithError,"sign");
     });
 
     _socket.on("message", function (data) {
-        console.log(data.toString());
+        let msg = data.toString();
+        msg = JSON.parse(msg);
+        let requestId = msg.requestId;
+        let cache = cachingRequests.get(requestId);
+        cachingRequests.delete(requestId);
+        if (msg.code === ResponseCode.OK){
+            cache.resolve(msg.data);
+        }else{
+            cache.reject(msg.data);
+        }
     });
 
     _socket.on('close', function (data) {
         console.log('socket close reason: ',data);
     });
 
+
+
     let signCallBackWithSuccess = function (data) {
-        execHandlers('SIGN_CALLBACK', [data]);
+        execHandlers('SIGN', [data]);
         console.log("signed to " + address);
     };
 
@@ -151,5 +159,18 @@ function init(address, username, password, handlers) {
     };
 
 }
+
+exports.sendMsg= function (msg, success, fail) {
+    let requestId = Common.generateRequestId(_username);
+    msg.requestId = requestId;
+    _socket.send(new Buffer(JSON.stringify(msg)));
+    bindRequestHandler(requestId, function (result) {//绑定返回值
+        success&&success(data);
+    }, function (err) {
+        fail&&fail(data);
+        console.log(err);
+    }, 'send msg');
+
+};
 
 exports.init = init;

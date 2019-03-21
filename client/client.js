@@ -1,7 +1,6 @@
-const client_core = require('./client-core');
+const ClientCore = require('./client-core');
+const UserService = require('./user-service');
 
 
 
-
-exports.signIn = client_core.init;
-
+exports.signIn = ClientCore.init;
