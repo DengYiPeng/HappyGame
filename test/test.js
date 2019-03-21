@@ -19,10 +19,12 @@ function getIPAdress(){
 let ip = getIPAdress();
 let address = ip + ':7041';
 
-let handlers = {
-    SIGN:function (userInfo) {
-        console.log(userInfo);
-    },
+let res = function(data){
+    console.log(data);
 };
 
-client.signIn(address, '邓逸鹏', handlers);
+let signRes = function(data){
+    console.log(data);
+    client.queryEquipmentListInShop(res, res);
+};
+client.signIn(address, '邓逸鹏', signRes, signRes);

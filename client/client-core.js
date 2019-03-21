@@ -2,7 +2,6 @@ const io = require("engine.io-client");
 const Common = require('../lib/util/common');
 const MsgType = require('../lib/constants/MsgType');
 const ResponseCode = require('../lib/constants/ResponseCode');
-let _handlers = {};
 let cachingRequests = new Map();
 let _socket ;
 let _username = '';
@@ -35,87 +34,8 @@ let bindRequestHandler = function (requestId, success, fail, note) {
     cachingRequests.set(requestId, cache);
 };
 
-let isValidHandler = function(handler) {
-    if (typeof handler === 'function' || handler instanceof RegExp) {
-        return true
-    } else if (handler && typeof handler === 'object') {
-        return isValidHandler(handler.handler)
-    } else {
-        return false
-    }
-};
-
-let indexOfHandlers = function(handlers, handler) {
-    if(handlers){
-        let i = handlers.length;
-        while (i--) {
-            if (handlers[i].handler === handler) {
-                return i;
-            }
-        }
-    }
-    return -1;
-};
-
-let addHandler = function (key, handler) {
-    if (!isValidHandler(handler)) {
-        throw new TypeError('handler must be a function');
-    }
-
-    let handlers = _handlers[key];
-    let listenerIsWrapped = typeof handler === 'object';
-
-    if (indexOfHandlers(handlers, handler) === -1) {
-        if(!_handlers[key]){
-            _handlers[key] = [];
-        }
-        _handlers[key].push(listenerIsWrapped ? handler : {
-            handler: handler,
-            once: false
-        });
-    }
-    return this;
-};
-
-let addOnceHandler = function (key, handler) {
-    return addHandler(key, {
-        handler: handler,
-        once: true
-    });
-};
-
-let removeHandler = function (key, handler) {
-    let handlers = _handlers[key];
-    let index;
-
-    index = indexOfHandlers(handlers, handler);
-    if (index !== -1) {
-        handlers.splice(index, 1);
-    }
-
-    return this;
-};
-
-let execHandlers = function (key, args) {
-    let handlers = _handlers[key];
-    if(handlers){
-        let index = handlers.length;
-        while (index--){
-            handlers[index].handler && handlers[index].handler.apply(this, args);
-            if(handlers[index].once === true){
-                removeHandler(key, handlers[index].handler);
-            }
-        }
-    }
-};
-
-function init(address, username, handlers) {
-    handlers || (handlers = {});
-    for (let key in handlers){
-        if (handlers.hasOwnProperty(key)) {
-            addHandler(key, handlers[key]);
-        }
-    }
+function init(address, username, res, rej) {
+    _username = username;
 
     _socket = new io("http://"+address, {
         transports:['websocket','polling'],
@@ -125,9 +45,9 @@ function init(address, username, handlers) {
     _socket.on("open", function () {
         let requestId = Common.generateRequestId(username);
         let params = {username: username};
-        let sign = {type: MsgType.START, params: JSON.stringify(params), requestId: requestId};
+        let sign = {type: MsgType.START, params: params, requestId: requestId};
         _socket.send(new Buffer(JSON.stringify(sign)));
-        bindRequestHandler(requestId, signCallBackWithSuccess, signCallBackWithError,"sign");
+        bindRequestHandler(requestId, res, rej,"sign");
     });
 
     _socket.on("message", function (data) {
@@ -145,18 +65,8 @@ function init(address, username, handlers) {
 
     _socket.on('close', function (data) {
         console.log('socket close reason: ',data);
+        _username = '';
     });
-
-
-
-    let signCallBackWithSuccess = function (data) {
-        execHandlers('SIGN', [data]);
-        console.log("signed to " + address);
-    };
-
-    let signCallBackWithError = function (err) {
-        console.error(err);
-    };
 
 }
 
@@ -165,9 +75,9 @@ exports.sendMsg= function (msg, success, fail) {
     msg.requestId = requestId;
     _socket.send(new Buffer(JSON.stringify(msg)));
     bindRequestHandler(requestId, function (result) {//绑定返回值
-        success&&success(data);
+        success&&success(result);
     }, function (err) {
-        fail&&fail(data);
+        fail&&fail(err);
         console.log(err);
     }, 'send msg');
 
