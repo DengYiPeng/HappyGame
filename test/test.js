@@ -25,6 +25,6 @@ let res = function(data){
 
 let signRes = function(data){
     console.log(data);
-    client.queryEquipmentListInShop(res, res);
+    client.markPosition(1,1,1);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);
