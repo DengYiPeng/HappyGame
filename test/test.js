@@ -25,6 +25,6 @@ let res = function(data){
 
 let signRes = function(data){
     console.log(data);
-    client.markPosition(1,1,1);
+    client.buyEquipment('SWORD_OF_5', res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);

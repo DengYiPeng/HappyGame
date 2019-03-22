@@ -9,4 +9,13 @@ let queryEquipmentList = function (success, fail) {
     client.sendMsg(msg, success, fail);
 };
 
+let buyEquipment = function (equipmentKey, success, fail){
+    let msg = {};
+    let params = {equipmentKey:equipmentKey};
+    msg.type = MsgType.BUY_EQUIPMENT;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.queryEquipmentList = queryEquipmentList;
+exports.buyEquipment = buyEquipment;

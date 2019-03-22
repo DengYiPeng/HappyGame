@@ -6,3 +6,4 @@ const EquipmentService = require('./equipment-service');
 exports.signIn = ClientCore.init;
 exports.markPosition = UserService.markPosition;
 exports.queryEquipmentListInShop = EquipmentService.queryEquipmentList;
+exports.buyEquipment = EquipmentService.buyEquipment;
