@@ -24,7 +24,6 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    console.log(data);
-    client.heal(res, res);
+    client.getUserStatus(res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);

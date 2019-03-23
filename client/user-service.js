@@ -17,5 +17,14 @@ let heal = function(success ,fail){
     client.sendMsg(msg, success, fail);
 };
 
+let getUserStatus = function(success, fail){
+    let msg = {};
+    let params ={};
+    msg.type = MsgType.USER_STATUS;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.markPosition = markPosition;
 exports.heal = heal;
+exports.getUserStatus = getUserStatus;

@@ -4,6 +4,7 @@ const EquipmentService = require('./equipment-service');
 
 
 exports.signIn = ClientCore.init;
+exports.getUserStatus = UserService.getUserStatus;
 exports.markPosition = UserService.markPosition;
 exports.heal = UserService.heal;
 exports.queryEquipmentListInShop = EquipmentService.queryEquipmentList;
