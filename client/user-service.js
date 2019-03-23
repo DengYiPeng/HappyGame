@@ -25,6 +25,15 @@ let getUserStatus = function(success, fail){
     client.sendMsg(msg, success, fail);
 };
 
+let getUserLevelInfo = function(success, fail){
+    let msg = {};
+    let params ={};
+    msg.type = MsgType.USER_LEVEL_INFO;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.markPosition = markPosition;
 exports.heal = heal;
 exports.getUserStatus = getUserStatus;
+exports.getUserLevelInfo = getUserLevelInfo;
