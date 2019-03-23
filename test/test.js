@@ -24,6 +24,7 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.getUserStatus(res, res);
+    client.strengthen('5c95cd5a89c0634b702cad7c', 'ATK', res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);
+

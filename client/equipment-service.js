@@ -25,6 +25,15 @@ let equip = function(equipmentId, success, fail){
     client.sendMsg(msg, success, fail);
 };
 
+let strengthen = function(equipmentId, key, success, fail){
+    let msg = {};
+    let params = {equipmentId:equipmentId, key:key};
+    msg.type = MsgType.STRENGTHEN;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.queryEquipmentList = queryEquipmentList;
 exports.buyEquipment = buyEquipment;
 exports.equip = equip;
+exports.strengthen = strengthen;
