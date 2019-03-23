@@ -54,9 +54,19 @@ let allocPotential = function(magic, atk, def, hp, mp, success, fail){
     client.sendMsg(msg, success, fail);
 };
 
+let initRoleType = function(roleType, success, fail){
+    let msg = {};
+    let params = {};
+    params.roleType = roleType;
+    msg.params = params;
+    msg.type = MsgType.INIT_ROLE_TYPE;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.markPosition = markPosition;
 exports.heal = heal;
 exports.getUserStatus = getUserStatus;
 exports.getUserLevelInfo = getUserLevelInfo;
 exports.levelUp = levelUp;
 exports.allocPotential = allocPotential;
+exports.initRoleType = initRoleType;

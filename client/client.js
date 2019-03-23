@@ -12,3 +12,4 @@ exports.levelUp = UserService.levelUp;
 exports.allocPotential = UserService.allocPotential;
 exports.queryEquipmentListInShop = EquipmentService.queryEquipmentList;
 exports.buyEquipment = EquipmentService.buyEquipment;
+exports.initRoleType = UserService.initRoleType;
