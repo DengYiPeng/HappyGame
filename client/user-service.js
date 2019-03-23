@@ -9,4 +9,13 @@ let markPosition = function (mapId, xAxis, yAxis, success, fail) {
     client.sendMsg(msg, success, fail);
 };
 
+let heal = function(success ,fail){
+    let msg = {};
+    let params = {};
+    msg.type = MsgType.HEAL;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.markPosition = markPosition;
+exports.heal = heal;
