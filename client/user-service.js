@@ -33,7 +33,16 @@ let getUserLevelInfo = function(success, fail){
     client.sendMsg(msg, success, fail);
 };
 
+let levelUp = function(success, fail){
+    let msg = {};
+    let params ={};
+    msg.type = MsgType.LEVEL_UP;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.markPosition = markPosition;
 exports.heal = heal;
 exports.getUserStatus = getUserStatus;
 exports.getUserLevelInfo = getUserLevelInfo;
+exports.levelUp = levelUp;

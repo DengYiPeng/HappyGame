@@ -24,6 +24,6 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.getUserLevelInfo(res, res);
+    client.levelUp(res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);

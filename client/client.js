@@ -8,5 +8,6 @@ exports.getUserStatus = UserService.getUserStatus;
 exports.markPosition = UserService.markPosition;
 exports.heal = UserService.heal;
 exports.getUserLevelInfo = UserService.getUserLevelInfo;
+exports.levelUp = UserService.levelUp;
 exports.queryEquipmentListInShop = EquipmentService.queryEquipmentList;
 exports.buyEquipment = EquipmentService.buyEquipment;
