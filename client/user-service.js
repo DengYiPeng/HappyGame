@@ -41,8 +41,22 @@ let levelUp = function(success, fail){
     client.sendMsg(msg, success, fail);
 };
 
+let allocPotential = function(magic, atk, def, hp, mp, success, fail){
+    let msg = {};
+    let params = {};
+    params.magic = magic;
+    params.atk = atk;
+    params.def = def;
+    params.hp = hp;
+    params.mp = mp;
+    msg.params = params;
+    msg.type = MsgType.ALLOC_POTENTIAL;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.markPosition = markPosition;
 exports.heal = heal;
 exports.getUserStatus = getUserStatus;
 exports.getUserLevelInfo = getUserLevelInfo;
 exports.levelUp = levelUp;
+exports.allocPotential = allocPotential;

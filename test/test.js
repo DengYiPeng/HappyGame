@@ -24,6 +24,6 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.levelUp(res, res);
+    client.allocPotential(1,0,0,0,0,res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);
