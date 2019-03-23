@@ -15,3 +15,4 @@ exports.buyEquipment = EquipmentService.buyEquipment;
 exports.initRoleType = UserService.initRoleType;
 exports.queryHealCostConfig = UserService.queryHealCostConfig;
 exports.queryRoleTypeConfig = UserService.queryRoleTypeConfig;
+exports.equip = EquipmentService.equip;
