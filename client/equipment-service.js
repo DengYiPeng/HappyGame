@@ -33,7 +33,16 @@ let strengthen = function(equipmentId, key, success, fail){
     client.sendMsg(msg, success, fail);
 };
 
+let getEquipmentByUsername = function(success, fail){
+    let msg = {};
+    let params = {};
+    msg.type = MsgType.GET_EQUIPMENT_IN_BAG;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.queryEquipmentList = queryEquipmentList;
 exports.buyEquipment = buyEquipment;
 exports.equip = equip;
 exports.strengthen = strengthen;
+exports.getEquipmentByUsername = getEquipmentByUsername;

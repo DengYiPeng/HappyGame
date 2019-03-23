@@ -265,3 +265,13 @@ exports.equip = EquipmentService.equip;
         true
  */
 exports.strengthen = EquipmentService.strengthen;
+
+/*
+    方法简介：获取自己已有的装备（包括已经装备在身上的）
+    参数：
+        success:失败回调函数
+        fail:失败回调函数
+    返回值示例：
+        true
+ */
+exports.getEquipmentsInBag = EquipmentService.getEquipmentByUsername;

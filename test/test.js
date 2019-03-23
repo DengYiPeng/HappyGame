@@ -24,7 +24,7 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.queryHealCostConfig(res, res);
+    client.getEquipmentsInBag(res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);
 
