@@ -1,6 +1,7 @@
 const ClientCore = require('./client-core');
 const UserService = require('./user-service');
 const EquipmentService = require('./equipment-service');
+const SkillService = require('./skill-service');
 
 /*
     方法简介：用户登录，建立和服务器的长连接（若用户名对应数据不存在，则会新建）
@@ -275,3 +276,49 @@ exports.strengthen = EquipmentService.strengthen;
         true
  */
 exports.getEquipmentsInBag = EquipmentService.getEquipmentByUsername;
+
+/*
+    方法简介：获取所有技能列表
+    参数：
+        success:失败回调函数
+        fail:失败回调函数
+    返回值示例：
+        { ATTACK:
+           { NAME: '普通攻击',
+             ATK_COEFFICIENT: { '1': 1, '2': 1.05, '3': 1.1, '4': 1.15, '5': 1.2 },
+             DESCRIPTION: '造成基于攻击力的加成伤害',
+             MAGIC_COST: 0 },
+          DASH:
+           { NAME: '冲刺',
+             ATK_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
+             DESCRIPTION: '造成基于攻击力的加成伤害',
+             MAGIC_COST: 3 },
+          FIRE_BALL:
+           { NAME: '火球术',
+             MAGIC_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
+             DESCRIPTION: '造成基于法力值的加成伤害',
+             MAGIC_COST: 5 },
+          PRAY:
+           { NAME: '祈祷',
+             DEF_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
+             DESCRIPTION: '产生基于防御值的治疗效果',
+             MAGIC_COST: 4 }
+         }
+ */
+exports.querySkillList = SkillService.querySkillList;
+
+/*
+    方法简介：获取升级技能的相关配置
+    参数：
+        success:失败回调函数
+        fail:失败回调函数
+    返回值示例：
+        { '0': { GOLD_COST: 20 },
+          '1': { GOLD_COST: 40 },
+          '2': { GOLD_COST: 100 },
+          '3': { GOLD_COST: 250 },
+          '4': { GOLD_COST: 700 },
+          '5': { GOLD_COST: 2000 }
+         }
+ */
+exports.queryUpskillConfig = SkillService.queryUpskillConfig;
