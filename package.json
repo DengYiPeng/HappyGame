@@ -27,6 +27,6 @@
     "underscore": "~1.8.3"
   },
   "scripts": {
-    "start": "node lib/app.js"
+    "start": "node lib/connector/connector-server"
   }
 }
