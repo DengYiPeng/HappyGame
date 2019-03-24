@@ -18,5 +18,15 @@ let queryUpskillConfig = function (success, fail) {
     client.sendMsg(msg, success, fail);
 };
 
+let upSkill = function(key, success, fail){
+    let msg = {};
+    let params = {};
+    params.key = key;
+    msg.type = MsgType.UPSKILL;
+    msg.params = params;
+    client.sendMsg(msg, success, fail);
+};
+
 exports.querySkillList = querySkillList;
 exports.queryUpskillConfig = queryUpskillConfig;
+exports.upSkill = upSkill;

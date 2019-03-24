@@ -24,7 +24,7 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.queryUpskillConfig(res, res);
+    client.upSkill('DASH', res, res);
 };
 client.signIn(address, '邓逸鹏', signRes, signRes);
 

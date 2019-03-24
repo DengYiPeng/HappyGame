@@ -322,3 +322,15 @@ exports.querySkillList = SkillService.querySkillList;
          }
  */
 exports.queryUpskillConfig = SkillService.queryUpskillConfig;
+
+
+/*
+    方法简介：升级技能
+    参数：
+        key:String，技能的key，['ATTACK','DASH','FIRE_BALL','PRAY']
+        success:失败回调函数
+        fail:失败回调函数
+    返回值示例：
+        true
+ */
+exports.upSkill = SkillService.upSkill;
