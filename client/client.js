@@ -2,7 +2,7 @@ const ClientCore = require('./client-core');
 const UserService = require('./user-service');
 const EquipmentService = require('./equipment-service');
 const SkillService = require('./skill-service');
-
+const FightService = require('./fight-service');
 /*
     方法简介：用户登录，建立和服务器的长连接（若用户名对应数据不存在，则会新建）
     参数：
@@ -83,7 +83,7 @@ exports.signIn = ClientCore.init;
  */
 exports.getUserStatus = UserService.getUserStatus;
 /*
-    方法简介：更新角色所在地图及坐标
+    方法简介：更新角色所在地图及坐标,如果遇怪则会返回战斗信息，返回Null，战斗信息中的type见constants/FightResultType.js
     参数：
         mapId:类型String，服务器地址
         xAxis：类型int,地图上横坐标
@@ -91,7 +91,43 @@ exports.getUserStatus = UserService.getUserStatus;
         success:失败回调函数
         fail:失败回调函数
     返回值示例：
-        true
+        { characters:
+           { '35865a35-0fee-ca82-d6b9-2b58b558e035':
+              { id: '35865a35-0fee-ca82-d6b9-2b58b558e035',
+                name: '野猪',
+                magic: 0,
+                atk: 5,
+                def: 5,
+                skills: [Object],
+                exp: 1,
+                gold: 1,
+                maxHp: 15,
+                maxMp: 0,
+                hp: 15,
+                mp: 0 },
+             '邓逸鹏':
+              { _id: '5c9729225e7eae04b4c405ad',
+                username: '邓逸鹏',
+                roleType: 0,
+                mapIndex: 0,
+                xAxis: 1,
+                yAxis: 1,
+                level: 0,
+                hp: 12,
+                mp: 20,
+                maxHp: 20,
+                maxMp: 20,
+                exp: 1,
+                gold: 661,
+                potential: 0,
+                atk: 10,
+                def: 10,
+                magic: 10,
+                skills: [Object],
+                weaponInfo: null,
+                armorInfo: null } },
+          info: [],
+          result: 0 }
  */
 exports.markPosition = UserService.markPosition;
 
@@ -334,3 +370,101 @@ exports.queryUpskillConfig = SkillService.queryUpskillConfig;
         true
  */
 exports.upSkill = SkillService.upSkill;
+
+
+
+/*
+    方法简介：战斗，使用一个技能
+    参数：
+        skillKey:String,['ATTACK','FIRE_BALL','DASH','PRAY']中选一个
+        targetId:String
+        success:失败回调函数
+        fail:失败回调函数
+    返回值示例：
+        {
+        "characters": {
+            "a33e0e93-51af-5c0f-debf-30435e726395": {
+                "id": "a33e0e93-51af-5c0f-debf-30435e726395",
+                "name": "野猪",
+                "magic": 0,
+                "atk": 5,
+                "def": 5,
+                "skills": {
+                    "ATTACK": {
+                        "level": 1
+                    }
+                },
+                "exp": 1,
+                "gold": 1,
+                "maxHp": 15,
+                "maxMp": 0,
+                "hp": 0,
+                "mp": 0
+            },
+            "邓逸鹏": {
+                "_id": "5c9729225e7eae04b4c405ad",
+                "username": "邓逸鹏",
+                "roleType": 0,
+                "mapIndex": 0,
+                "xAxis": 1,
+                "yAxis": 1,
+                "level": 0,
+                "hp": 12,
+                "mp": 20,
+                "maxHp": 20,
+                "maxMp": 20,
+                "exp": 0,
+                "gold": 660,
+                "potential": 0,
+                "atk": 10,
+                "def": 10,
+                "magic": 10,
+                "skills": {
+                    "ATTACK": {
+                        "level": 2
+                    },
+                    "DASH": {
+                        "level": 1
+                    }
+                },
+                "weaponInfo": null,
+                "armorInfo": null
+            }
+        },
+        "info": [{
+            "characterId": "邓逸鹏",
+            "targetCharacterId": "a33e0e93-51af-5c0f-debf-30435e726395",
+            "skillKey": "ATTACK",
+            "totalDamage": 5,
+            "magicCost": 0
+        }, {
+            "characterId": "a33e0e93-51af-5c0f-debf-30435e726395",
+            "targetCharacterId": "邓逸鹏",
+            "skillKey": "ATTACK",
+            "totalDamage": 1,
+            "magicCost": 0
+        }, {
+            "characterId": "邓逸鹏",
+            "targetCharacterId": "a33e0e93-51af-5c0f-debf-30435e726395",
+            "skillKey": "ATTACK",
+            "totalDamage": 5,
+            "magicCost": 0
+        }, {
+            "characterId": "a33e0e93-51af-5c0f-debf-30435e726395",
+            "targetCharacterId": "邓逸鹏",
+            "skillKey": "ATTACK",
+            "totalDamage": 1,
+            "magicCost": 0
+        }, {
+            "characterId": "邓逸鹏",
+            "targetCharacterId": "a33e0e93-51af-5c0f-debf-30435e726395",
+            "skillKey": "ATTACK",
+            "totalDamage": 5,
+            "magicCost": 0
+        }],
+        "result": 1,
+        "exp": 1,
+        "gold": 1
+    }
+ */
+exports.fight = FightService.fight;

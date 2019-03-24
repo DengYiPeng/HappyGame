@@ -1,9 +1,9 @@
 let client = require("./client-core");
 let MsgType = require('../lib/constants/MsgType');
 
-let markPosition = function (mapId, xAxis, yAxis, success, fail) {
+let markPosition = function (mapId, xAxis, yAxis, monsterType, success, fail) {
     let msg = {};
-    let params = {mapId:mapId, xAxis:xAxis, yAxis:yAxis};
+    let params = {mapId:mapId, xAxis:xAxis, yAxis:yAxis, monsterType:monsterType};
     msg.type = MsgType.MARK_POSITION;
     msg.params = params;
     client.sendMsg(msg, success, fail);

@@ -24,7 +24,9 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.upSkill('DASH', res, res);
+    client.markPosition(0,1,1,0, res, res);
 };
+
+// client.fight('ATTACK', '9e1b4551-8058-a6b4-f95e-410c9b67de61', res, res);
 client.signIn(address, '邓逸鹏', signRes, signRes);
 
