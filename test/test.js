@@ -24,7 +24,7 @@ let res = function(data){
 };
 
 let signRes = function(data){
-    client.markPosition(0,1,1,0, res, res);
+    client.strengthen('5c979f9a292e034040fb4bad', 'MAGIC', res, res);
 };
 
 // client.fight('ATTACK', '9e1b4551-8058-a6b4-f95e-410c9b67de61', res, res);
