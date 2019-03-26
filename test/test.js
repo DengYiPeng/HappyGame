@@ -17,7 +17,7 @@ function getIPAdress(){
 }
 
 let ip = getIPAdress();
-let address = ip + ':7041';
+let address ='119.23.29.56' + ':7041';
 
 let res = function(data){
     console.log(data);
@@ -28,5 +28,5 @@ let signRes = function(data){
 };
 
 // client.fight('ATTACK', '9e1b4551-8058-a6b4-f95e-410c9b67de61', res, res);
-client.signIn(address, '邓逸鹏', signRes, signRes);
+client.signIn(address, '邓逸鹏', res, res);
 
