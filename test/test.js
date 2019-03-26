@@ -17,16 +17,17 @@ function getIPAdress(){
 }
 
 let ip = getIPAdress();
-let address ='119.23.29.56' + ':7041';
-
+let address = ip + ':7041';
+console.log(address);
 let res = function(data){
     console.log(data);
 };
 
 let signRes = function(data){
-    client.strengthen('5c979f9a292e034040fb4bad', 'MAGIC', res, res);
+    console.log(data);
+    client.queryOtherUserInfo(0, res, res);
 };
 
 // client.fight('ATTACK', '9e1b4551-8058-a6b4-f95e-410c9b67de61', res, res);
-client.signIn(address, '邓逸鹏', res, res);
+client.signIn(address, '邓逸鹏', signRes, signRes);
 

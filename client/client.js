@@ -3,6 +3,8 @@ const UserService = require('./user-service');
 const EquipmentService = require('./equipment-service');
 const SkillService = require('./skill-service');
 const FightService = require('./fight-service');
+const MapService = require('./map-service');
+
 /*
     方法简介：用户登录，建立和服务器的长连接（若用户名对应数据不存在，则会新建）
     参数：
@@ -468,3 +470,32 @@ exports.upSkill = SkillService.upSkill;
     }
  */
 exports.fight = FightService.fight;
+/*
+    方法简介：获取指定地图上所有用户的定西
+    参数：
+        mapIndex:int
+        success:失败回调函数
+        fail:失败回调函数
+    返回值示例：
+        [ { _id: '5c9729225e7eae04b4c405ad',
+            username: '邓逸鹏',
+            roleType: 0,
+            mapIndex: 0,
+            xAxis: 1,
+            yAxis: 1,
+            level: 0,
+            hp: 12,
+            mp: 20,
+            maxHp: 20,
+            maxMp: 20,
+            exp: 1,
+            gold: 9985,
+            potential: 0,
+            atk: 10,
+            def: 10,
+            magic: 10,
+            skills: { ATTACK: [Object], DASH: [Object] },
+            weaponInfo: null,
+            armorInfo: null } ]
+ */
+exports.queryOtherUserInfo = MapService.queryOtherUserInfo;
