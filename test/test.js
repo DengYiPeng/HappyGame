@@ -25,7 +25,7 @@ let res = function(data){
 
 let signRes = function(data){
     console.log(data);
-    client.queryOtherUserInfo(0, res, res);
+    client.queryUpskillConfig(res, res);
 };
 
 // client.fight('ATTACK', '9e1b4551-8058-a6b4-f95e-410c9b67de61', res, res);

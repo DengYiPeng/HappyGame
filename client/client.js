@@ -204,12 +204,11 @@ exports.allocPotential = UserService.allocPotential;
         success:失败回调函数
         fail:失败回调函数
     返回值示例：
-        { SWORD_OF_5: { TYPE: 0, ATK: 5, LEVEL: 5, VALUE: 5 },
-          SWORD_OF_15: { TYPE: 0, ATK: 15, LEVEL: 15, VALUE: 20 },
-          SWORD_OF_25: { TYPE: 0, ATK: 40, LEVEL: 25, VALUE: 50 },
-          SWORD_OF_35: { TYPE: 0, ATK: 100, LEVEL: 35, VALUE: 200 },
-          SWORD_OF_45: { TYPE: 0, ATK: 200, LEVEL: 45, VALUE: 1000 }
-         }
+         [ { TYPE: 0, ATK: 5, LEVEL: 5, VALUE: 5, key: 'SWORD_OF_5' },
+          { TYPE: 0, ATK: 15, LEVEL: 15, VALUE: 20, key: 'SWORD_OF_15' },
+          { TYPE: 0, ATK: 40, LEVEL: 25, VALUE: 50, key: 'SWORD_OF_25' },
+          { TYPE: 0, ATK: 100, LEVEL: 35, VALUE: 200, key: 'SWORD_OF_35' },
+          { TYPE: 0, ATK: 200, LEVEL: 45, VALUE: 1000, key: 'SWORD_OF_45' } ]
  */
 exports.queryEquipmentListInShop = EquipmentService.queryEquipmentList;
 /*
@@ -321,27 +320,30 @@ exports.getEquipmentsInBag = EquipmentService.getEquipmentByUsername;
         success:失败回调函数
         fail:失败回调函数
     返回值示例：
-        { ATTACK:
-           { NAME: '普通攻击',
-             ATK_COEFFICIENT: { '1': 1, '2': 1.05, '3': 1.1, '4': 1.15, '5': 1.2 },
-             DESCRIPTION: '造成基于攻击力的加成伤害',
-             MAGIC_COST: 0 },
-          DASH:
-           { NAME: '冲刺',
-             ATK_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
-             DESCRIPTION: '造成基于攻击力的加成伤害',
-             MAGIC_COST: 3 },
-          FIRE_BALL:
-           { NAME: '火球术',
-             MAGIC_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
-             DESCRIPTION: '造成基于法力值的加成伤害',
-             MAGIC_COST: 5 },
-          PRAY:
-           { NAME: '祈祷',
-             DEF_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
-             DESCRIPTION: '产生基于防御值的治疗效果',
-             MAGIC_COST: 4 }
-         }
+        [ { NAME: '普通攻击',
+            ATK_COEFFICIENT: { '1': 1, '2': 1.05, '3': 1.1, '4': 1.15, '5': 1.2 },
+            DESCRIPTION: '造成基于攻击力的加成伤害',
+            MAGIC_COST: 0,
+            DEF_IGNORE: 0,
+            KEY: 'ATTACK' },
+          { NAME: '冲刺',
+            ATK_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
+            DESCRIPTION: '造成基于攻击力的加成伤害',
+            MAGIC_COST: 3,
+            DEF_IGNORE: 0.1,
+            KEY: 'DASH' },
+          { NAME: '火球术',
+            MAGIC_COEFFICIENT: { '1': 1.2, '2': 1.3, '3': 1.4, '4': 1.5, '5': 1.6 },
+            DESCRIPTION: '造成基于法力值的加成伤害',
+            MAGIC_COST: 5,
+            DEF_IGNORE: 0.2,
+            KEY: 'FIRE_BALL' },
+          { NAME: '祈祷',
+            DEF_COEFFICIENT: { '1': -1.2, '2': -1.3, '3': -1.4, '4': -1.5, '5': -1.6 },
+            DESCRIPTION: '产生基于防御值的治疗效果',
+            MAGIC_COST: 4,
+            DEF_IGNORE: 1,
+            KEY: 'PRAY' } ]
  */
 exports.querySkillList = SkillService.querySkillList;
 
@@ -351,13 +353,12 @@ exports.querySkillList = SkillService.querySkillList;
         success:失败回调函数
         fail:失败回调函数
     返回值示例：
-        { '0': { GOLD_COST: 20 },
-          '1': { GOLD_COST: 40 },
-          '2': { GOLD_COST: 100 },
-          '3': { GOLD_COST: 250 },
-          '4': { GOLD_COST: 700 },
-          '5': { GOLD_COST: 2000 }
-         }
+        [ { COST: 20, level: 0 },
+          { COST: 40, level: 1 },
+          { COST: 100, level: 2 },
+          { COST: 250, level: 3 },
+          { COST: 700, level: 4 },
+          { COST: 2000, level: 5 } ]
  */
 exports.queryUpskillConfig = SkillService.queryUpskillConfig;
 
