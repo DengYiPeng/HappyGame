@@ -56,6 +56,10 @@ function init(address, username, res, rej) {
         let requestId = msg.requestId;
         let cache = cachingRequests.get(requestId);
         cachingRequests.delete(requestId);
+        if (!cache){
+            console.log(msg);
+            return;
+        }
         if (msg.code === ResponseCode.OK){
             cache.resolve(msg.data);
         }else{
